@@ -16,18 +16,21 @@ InterpolateGrids <- function(grid.array, times, step.size, max.time) {
 	}
 	final.grid <- c()
 	for (time.period in sequence(length(times)-1)) {
-		for (step.index in __) {
-			final.grid <- append(final.grid, interpolation of grid at time.period and grid at time.period+1)
-		}
+#		for (step.index in __) {
+#			final.grid <- append(final.grid, interpolation of grid at time.period and grid at time.period+1)
+#		}
 	}
 }
 
-#starting.prob is same size as grid, but has probability of that individual
-#being in each cell; at tips, presumably 1 in one cell, 0 in all others, but
-#as you go down this spreads out
-#grid is the array of available spaces at this time step
-#rate is the probability of trying a move to a neighboring cell
-#right now, rate same for all individuals, but could make trait dependent in future
+#' Generate movement from one grid to the next
+#'
+#' @param starting.prob Same size as grid, but has probability of that individual
+#'   being in each cell; at tips, presumably 1 in one cell, 0 in all others, but
+#'   as you go down this spreads out
+#' @param grid Two dimentional matrix of available spaces at this time step
+#' @param rate Probability of trying a move to a neighboring cell. Right now, rate same
+#'   for all individuals, but could make trait dependent in future
+#' @return A matrix with probability of encountering the species in each grid cell
 MoveOneStep <- function(starting.prob, grid, rate) {
 	#about to do for loop. Much better would be to pull out the part below into
 	#a function and then do apply()
@@ -50,6 +53,20 @@ MoveOneStep <- function(starting.prob, grid, rate) {
 		}
 	}
 	return(final.prob)
+}
+
+#' Create a matrix where suitability of each cell is the same, but with bounds at the margins
+#'
+#' @param nrow The number of total rows (including the boundary rows)
+#' @param ncol The number of total columns (including the boundary columns)
+#' @return A matrix with all ones except the top and bottom rows and left and right columns, which are zero.
+MakeUniformGridWithBounds <- function(nrow=10, ncol=10) {
+	my.grid <- matrix(1, nrow=nrow, ncol=ncol)
+	my.grid[1,] <- 0
+	my.grid[,1] <- 0
+	my.grid[nrow,] <- 0
+	my.grid[,ncol] <- 0
+	return(my.grid)
 }
 
 #now take final.prob grids from the left and right descendants (or from more of them)

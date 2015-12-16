@@ -2,11 +2,16 @@ Package: phlee
 Version: 0.1
 Date: 2015-12-16
 Title: Phylogenetic Hopping Landscape Effected Evolution
-Author: Kathryn A. Massana <kmassana@vols.utk.edu>, Brian O'Meara <bomeara@utk.edu>
+Author: Kathryn A. Massana <kmassana@vols.utk.edu>, Brian O'Meara
+    <bomeara@utk.edu>
 Maintainer: Kathryn A. Massana <kmassana@vols.utk.edu>
-Depends: ape
-Suggests: testthat
-Imports: parallel, methods
+Depends:
+    ape
+Suggests:
+    testthat
+Imports:
+    parallel,
+    methods
 Description: Phylogeography
 License: GPL (>= 2)
-
+RoxygenNote: 5.0.1
